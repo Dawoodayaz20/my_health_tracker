@@ -1,29 +1,46 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { AuthProvider, useAuth } from "@/lib/auth-context";
+import { Stack, useRouter, useSegments } from "expo-router";
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native"; 
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+function RouteGuard({children} : { children: React.ReactNode }){
+
+    // const [isSignUp, setisSignUp] = useState<boolean>(false)
+    const {user, isLoadingUser} = useAuth();
+    const router = useRouter();
+    const segments = useSegments();
+
+    useEffect(() => {
+      const inAuthGroup = segments[0] === "auth"
+      if(!user && !inAuthGroup && !isLoadingUser) {
+        router.replace("/auth");
+      }
+      else if(user && inAuthGroup && isLoadingUser){
+        router.replace("/");
+      }
+    }, [user, segments]);
+
+    return <>{children}</>
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+            <AuthProvider>
+            <RouteGuard>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown:false }}/>
+                <Stack.Screen
+                    name="medicalAgent/medicalassistant"
+                    options={{
+                        title: "Medical Assistant",
+                        headerBackVisible: true, // 👈 make sure this is set
+                        headerTintColor:'#fff',
+                        headerStyle:{backgroundColor:"#1E90FF"}
+                    }}
+                />
+
+              </Stack>
+            </RouteGuard>
+            </AuthProvider>  
   );
 }
