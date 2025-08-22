@@ -38,7 +38,6 @@ export default function RootLayout() {
                         headerStyle:{backgroundColor:"#1E90FF"}
                     }}
                 />
-
               </Stack>
             </RouteGuard>
             </AuthProvider>  

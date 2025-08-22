@@ -33,7 +33,7 @@ export default function Index() {
     <View style={styles.sections}>
     <View
       style={styles.view}>
-        <Link href="/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
+        <Link href="/reminderPage/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
           <Image 
             source={reminder}
             style={[styles.icons, {resizeMode: 'contain'}]} />
@@ -41,7 +41,7 @@ export default function Index() {
     
     <View
       style={styles.view}>
-        <Link href="/auth"><Text variant="labelLarge">Medical Records</Text></Link>
+        <Link href="/"><Text variant="labelLarge">Medical Records</Text></Link>
           <Image 
             source={medicalRec}
             style={[styles.icons, {resizeMode: 'contain'}]} />
