@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, ScrollView } from "react-native"
+import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView } from "react-native"
 import { Button } from "react-native-paper"
+import * as ImagePicker from 'expo-image-picker'
 
 export default function LoginScreen() {
     const {signOut} = useAuth();
     const page = "loginPage"
 
+    const [image, setImage] = useState<string | null>(null);
     const [profile, setProfile] = useState({
     name: "",
     age: "",
@@ -14,21 +16,47 @@ export default function LoginScreen() {
     email: "",
     password: "",
     });
+    
+    const pickImage = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
+        if(!permissionResult.granted){
+            alert("Permission to access gallery is required!")
+            return;
+        }
+
+        //Open gallery
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1,
+    });
+
+    if(!result.canceled) {
+        setImage(result.assets[0].uri);
+    }
+    };
 
     return(
+    <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
     <ScrollView contentContainerStyle={styles.container}>
       {/* Profile Picture */}
       <TouchableOpacity>
-        <Image
-          source={{ uri: "https://via.placeholder.com/120" }} // Placeholder profile pic
-          style={styles.profilePic}
-        />
+        <View style={styles.outerView}>
+        {image && <Image source={{ uri: image }} style={styles.profilePic} />}
+        <Button style={styles.button} onPress={pickImage} icon={'camera'} labelStyle={{ color: '#fff' }}>
+          Pick Profile Picture
+        </Button>
+        </View>
       </TouchableOpacity>
+      
 
       {/* Personal Info Section */}
       <Text style={styles.sectionTitle}>Personal Info</Text>
-
       <TextInput
         placeholder="Name"
         value={profile.name}
@@ -65,7 +93,9 @@ export default function LoginScreen() {
 
       <Button style={styles.signOut} onPress={signOut} icon={"logout"}>{" "}
                 Sign Out {" "}</Button>
+
     </ScrollView>
+    </KeyboardAvoidingView>
     )
 }
 
@@ -75,21 +105,25 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    button:{
+        margin: 50,
+        backgroundColor: '#1E90FF',
+    },
     signOut:{
         marginTop: 50,
         backgroundColor:"black"
     },
     container: {
-    flexGrow: 1,
+    justifyContent: "center",
     alignItems: "center",
     padding: 20,
     backgroundColor: "#fff",
   },
   profilePic: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginBottom: 20,
+    width: 150,
+    height: 150,
+    borderRadius: 80,
+    marginBottom: 40,
   },
   sectionTitle: {
     fontSize: 20,
