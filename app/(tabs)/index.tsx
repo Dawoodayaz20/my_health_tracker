@@ -1,14 +1,15 @@
-import { ScrollView, SafeAreaView, View, StyleSheet, Image } from "react-native";
+import { ScrollView, SafeAreaView, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import {Link} from "expo-router"
 import { Text } from 'react-native-paper'
 
 export default function Index() {
   
-  const reminder = require('../../assets/images/reminder.png')
-  const medicalRec = require('../../assets/images/medicalrecords.png')
-  const medicalassist = require('../../assets/images/medicalassist.png')
-  const medicines = require('../../assets/images/medicines.png')
-  const profilepic = require('../../assets/images/Zulkifl Profile1.jpg')
+  const reminder = require('../../assets/images/reminder.png');
+  const medicalRec = require('../../assets/images/medicalrecords.png');
+  const medicalassist = require('../../assets/images/medicalassist.png');
+  const medicines = require('../../assets/images/medicines.png');
+  const profilepic = require('../../assets/images/Zulkifl Profile1.jpg');
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -31,17 +32,19 @@ export default function Index() {
       </View>
 
     <View style={styles.sections}>
-    <View
-      style={styles.view}>
-        <Link href="/reminderPage/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
-          <Image 
-            source={reminder}
-            style={[styles.icons, {resizeMode: 'contain'}]} />
-    </View>
+    <TouchableOpacity>
+      <View
+        style={styles.view}>
+          <Link href="/remindersPage/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
+            <Image 
+              source={reminder}
+              style={[styles.icons, {resizeMode: 'contain'}]} />
+      </View>
+    </TouchableOpacity>
     
     <View
       style={styles.view}>
-        <Link href="/"><Text variant="labelLarge">Medical Records</Text></Link>
+        <Link href="/medicalRecords/medicalRecPage"><Text variant="labelLarge">Medical Records</Text></Link>
           <Image 
             source={medicalRec}
             style={[styles.icons, {resizeMode: 'contain'}]} />

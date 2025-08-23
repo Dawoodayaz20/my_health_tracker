@@ -30,6 +30,15 @@ export default function RootLayout() {
               <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown:false }}/>
                 <Stack.Screen
+                    name="medicalRecords/medicalRecPage"
+                    options={{
+                        title: "Medical Records",
+                        headerBackVisible: true, // 👈 make sure this is set
+                        headerTintColor:'#fff',
+                        headerStyle:{backgroundColor:"#1E90FF"}
+                    }}
+                />
+                <Stack.Screen
                     name="medicalAgent/medicalassistant"
                     options={{
                         title: "Medical Assistant",

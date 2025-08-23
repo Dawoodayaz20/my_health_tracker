@@ -4,10 +4,8 @@ import { View, StyleSheet, Image } from "react-native"
 import * as ImagePicker from 'expo-image-picker'
 
 
-export default function Reminders () {
+export default function Reminders() {
     const [image, setImage] = useState<string | null>(null)
-
-
     
     const pickImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
