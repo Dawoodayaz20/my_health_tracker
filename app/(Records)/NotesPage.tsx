@@ -9,26 +9,31 @@ export default function NotesList() {
     const router = useRouter();
 
     return(
-        <View className=" bg-blue-500">
-            <View className="inline-flex text-center">
-            <Text className="text-4xl"> Medical Notes </Text>
-            <Button onPress={() => router.push({pathname: "./AddNote"})}><Text className="text-5xl">Hello+</Text></Button>
+        <View className="flex-1 bg-blue-50 p-4">
+            <View className="flex-row justify-between items-center mb-6">
+            <Text className="text-2xl font-bold text-blue-700"> Medical Notes </Text>
+            <Button 
+                mode="contained" 
+                onPress={() => router.push({pathname: "./AddNote"})}
+                className="bg-blue-600 rounded-full">
+                +
+            </Button>
             </View>
             <FlatList 
             data={notes}
             keyExtractor={(note) => note.id.toString()}
             renderItem={({item: note})=>(
-                <TouchableOpacity>
-                <View className="flex-col">
-                    <View className="bg-cyan-500 rounded-lg">
-                        <Text>
-                            {note.date}
-                        </Text>
-                        <View>
-                            <Text>{note.heading}</Text>
-                            <Text>{note.details}</Text>
-                        </View>
-                    </View>
+                <TouchableOpacity activeOpacity={0.7}>
+                <View className="bg-white rounded-xl shadow-md p-4 mb-4">
+                    <Text className="text-xs text-gray-400 mb-1">
+                        {note.date}
+                    </Text>
+                    <Text className="text-lg font-semibold text-gray-800">
+                        {note.heading}
+                    </Text>
+                    <Text className="text-gray-600 mt-1">
+                        {note.details}
+                    </Text>
                 </View>
                 </TouchableOpacity>
                 )}

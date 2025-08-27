@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { NotesContext } from "./notesContext";
 import { useRouter } from "expo-router";
-import { View, Text, Button, TextInput } from "react-native";
+import { View } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 
 export default function AddNote () {
     const { notes, setNotes } = useContext(NotesContext);
@@ -12,38 +13,50 @@ export default function AddNote () {
     const router = useRouter()
 
     const saveNote = () => {
-    setNotes([...notes,
-        {
-            id: Date.now(),
-            heading,
-            date, 
-            details: detail
-        },
+        if (!heading.trim() || !detail.trim()) return;    
+        setNotes([...notes,
+            {
+                id: Date.now(),
+                heading,
+                date, 
+                details: detail
+            },
     ]);
     router.back();    
     }
 
     return(
-        <View className="flex-col">
-            <View className="flex mt-10">
-            <Text className="">New Note</Text>
-            <Button onPress={saveNote} title="Save" />
+        <View className="flex-1 bg-blue-50 p-6">
+            <View className="flex-row justify-between items-center mb-6">
+            <Text className="text-2xl font-bold text-blue-700">New Note</Text>
+            <Button mode="contained" onPress={saveNote}>
+                Save
+            </Button>
             </View>
-            <View className="flex-col mt-10">
+            <View className="gap-4">
                 <TextInput
-                placeholder="Heading"
+                label="Heading"
+                mode="outlined"
                 value={heading}
-                onChangeText={setHeading} 
+                onChangeText={setHeading}
+                className="bg-white" 
                 />
                 <TextInput 
-                placeholder="Date"
+                label="Date"
+                mode="outlined"
                 value={date}
                 onChangeText={setDate}
+                placeholder="e.g. 19 Aug 2025"
+                className="bg-white"
                 />
                 <TextInput
-                placeholder="Detail"
+                label="Details"
+                mode="outlined"
                 value={detail}
                 onChangeText={setDetail}
+                multiline
+                numberOfLines={4}
+                className="bg-white"
                 />
             </View>
         </View>
