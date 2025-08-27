@@ -22,14 +22,19 @@ export default function TabsLayout() {
       <Tabs.Screen name="index" options={{ 
         title: "Home",
         headerStyle: styles.headerStyle,
-        headerTintColor: "#fff"
+        headerTintColor: "#fff",
+        tabBarIcon: ({ color, focused }) => (
+        <MaterialCommunityIcons 
+        name="home" 
+        size={12}
+        />)
         }}/>
       <Tabs.Screen name="login" options={{ 
         title: "Profile",
         headerStyle: styles.headerStyle,
         tabBarIcon: ({ color, focused }) => (
         <MaterialCommunityIcons 
-        name="calendar-today" 
+        name="account" 
         size={12}
         />),
         }}/>

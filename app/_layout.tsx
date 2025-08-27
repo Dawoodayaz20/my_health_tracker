@@ -2,6 +2,8 @@ import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native"; 
+import NotesProvider from "./(Records)/notesContext";
+import './globals.css'
 
 function RouteGuard({children} : { children: React.ReactNode }){
 
@@ -26,20 +28,16 @@ function RouteGuard({children} : { children: React.ReactNode }){
 export default function RootLayout() {
   return (
             <AuthProvider>
+            <NotesProvider>  
             <RouteGuard>
               <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown:false }}/>
-                <Stack.Screen
-                    name="medicalAgent/medicalassistant"
-                    options={{
-                        title: "Medical Assistant",
-                        headerBackVisible: true, // 👈 make sure this is set
-                        headerTintColor:'#fff',
-                        headerStyle:{backgroundColor:"#1E90FF"}
-                    }}
-                />
+                <Stack.Screen name="(reminders)" options={{ headerShown:false }}/>
+                <Stack.Screen name="(Records)" options={{ headerShown:false }}/>
+                <Stack.Screen name="(Assistant)" options={{ headerShown:false }}/>
               </Stack>
             </RouteGuard>
+            </NotesProvider>
             </AuthProvider>  
   );
 }
