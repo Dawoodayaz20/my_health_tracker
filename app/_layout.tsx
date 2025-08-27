@@ -31,9 +31,9 @@ export default function RootLayout() {
             <NotesProvider>  
             <RouteGuard>
               <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown:false }}/>
-                <Stack.Screen name="(reminders)" options={{ headerShown:false }}/>
-                <Stack.Screen name="(Records)" options={{ headerShown:false }}/>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
+                <Stack.Screen name="(reminders)" options={{ headerShown: false }}/>
+                <Stack.Screen name="(Records)" options={{ headerShown: true, title:'' }}/>
                 <Stack.Screen name="(Assistant)" options={{ headerShown:false }}/>
               </Stack>
             </RouteGuard>
