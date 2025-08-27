@@ -3,7 +3,6 @@ import { Text, Button } from "react-native-paper"
 import { View, StyleSheet, Image } from "react-native"
 import * as ImagePicker from 'expo-image-picker'
 
-
 export default function Reminders() {
     const [image, setImage] = useState<string | null>(null)
     
@@ -26,11 +25,11 @@ export default function Reminders() {
     if(!result.canceled) {
         setImage(result.assets[0].uri);
     }
-
     }
 
     return (
         <View>
+            <Text className="ml-5 text-xl font-extrabold">Reminders</Text>
         <View style={styles.outerview}>
             <Text>This is the Reminders Page</Text>
             {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}> */}

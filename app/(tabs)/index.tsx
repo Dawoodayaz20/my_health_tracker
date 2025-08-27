@@ -35,7 +35,7 @@ export default function Index() {
     <TouchableOpacity>
       <View
         style={styles.view}>
-          <Link href="/remindersPage/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
+          <Link href="/(reminders)/reminderPage"><Text variant="labelLarge">Reminders</Text></Link>
             <Image 
               source={reminder}
               style={[styles.icons, {resizeMode: 'contain'}]} />
@@ -44,7 +44,7 @@ export default function Index() {
     
     <View
       style={styles.view}>
-        <Link href="/medicalRecords/medicalRecPage"><Text variant="labelLarge">Medical Records</Text></Link>
+        <Link href="/(Records)/NotesPage"><Text variant="labelLarge">Medical Records</Text></Link>
           <Image 
             source={medicalRec}
             style={[styles.icons, {resizeMode: 'contain'}]} />
@@ -60,7 +60,7 @@ export default function Index() {
     
     <View
       style={styles.view}>
-        <Link href="../../medicalAgent/medicalassistant"><Text variant="labelLarge">Medical Assistant</Text></Link>
+        <Link href="/(Assistant)/medicalassistant"><Text variant="labelLarge">Medical Assistant</Text></Link>
           <Image 
             source={medicalassist}
             style={[styles.icons, {resizeMode: 'contain'}]} />
