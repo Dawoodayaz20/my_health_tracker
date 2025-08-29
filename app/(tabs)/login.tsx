@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView } from "react-native"
-import { Button } from "react-native-paper"
+import {StyleSheet, Text, View, Image, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView } from "react-native"
+import { Button, TextInput } from "react-native-paper"
 import * as ImagePicker from 'expo-image-picker'
 
 export default function LoginScreen() {
@@ -16,6 +16,10 @@ export default function LoginScreen() {
     email: "",
     password: "",
     });
+
+    const saveInfo = () => {
+      
+    }
     
     const pickImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -58,33 +62,33 @@ export default function LoginScreen() {
       {/* Personal Info Section */}
       <Text style={styles.sectionTitle}>Personal Info</Text>
       <TextInput
-        placeholder="Name"
+        label="Name"
         value={profile.name}
         onChangeText={(text) => setProfile({ ...profile, name: text })}
         style={styles.input}
       />
       <TextInput
-        placeholder="Age"
+        label="Age"
         value={profile.age}
         onChangeText={(text) => setProfile({ ...profile, age: text })}
         style={styles.input}
         keyboardType="numeric"
       />
       <TextInput
-        placeholder="Gender"
+        label="Gender"
         value={profile.gender}
         onChangeText={(text) => setProfile({ ...profile, gender: text })}
         style={styles.input}
       />
       <TextInput
-        placeholder="Email"
+        label="Email"
         value={profile.email}
         onChangeText={(text) => setProfile({ ...profile, email: text })}
         style={styles.input}
         keyboardType="email-address"
       />
       <TextInput
-        placeholder="Password"
+        label="Password"
         value={profile.password}
         onChangeText={(text) => setProfile({ ...profile, password: text })}
         style={styles.input}

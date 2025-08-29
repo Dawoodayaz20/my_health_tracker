@@ -1,36 +1,54 @@
 import React, { useState, useContext } from "react";
 import { NotesContext } from "./notesContext";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
+import { Note } from "./notesContext";
 
 export default function AddNote () {
     const { notes, setNotes } = useContext(NotesContext);
-    const [heading, setHeading] = useState<any>('')
-    const [date, setDate] = useState<any>('')
-    const [detail, setDetail] = useState<any>('')
+    const params = useLocalSearchParams()
+    const [heading, setHeading] = useState<any>(params.heading || '')
+    const [date, setDate] = useState<any>(params.date ||'')
+    const [details, setDetail] = useState<any>(params.details ||'')
 
     const router = useRouter()
 
+    
+
     const saveNote = () => {
-        if (!heading.trim() || !detail.trim()) return;    
-        setNotes([...notes,
+        if (!heading.trim() || !details.trim()) return;
+        
+        if(params.id) {
+            setNotes(
+                notes.map((n: Note) => 
+                n.id === Number(params.id) 
+                ? { ...n, heading, date, details } 
+                : n
+                )
+            );
+        } else {
+        setNotes([
+            ...notes,
             {
                 id: Date.now(),
                 heading,
                 date, 
-                details: detail
+                details,
             },
-    ]);
+    ])};
+
     router.back();    
     }
 
     return(
         <View className="flex-1 bg-blue-50 p-6">
             <View className="flex-row justify-between items-center mb-6">
-            <Text className="text-2xl font-bold text-blue-700">New Note</Text>
+            <Text className="text-2xl font-bold text-blue-700">
+                {params.id ? "Edit Note" : "New Note"}
+            </Text>
             <Button mode="contained" onPress={saveNote}>
-                Save
+                {params.id ? "Update" : "Save"}
             </Button>
             </View>
             <View className="gap-4">
@@ -52,7 +70,7 @@ export default function AddNote () {
                 <TextInput
                 label="Details"
                 mode="outlined"
-                value={detail}
+                value={details}
                 onChangeText={setDetail}
                 multiline
                 numberOfLines={4}
