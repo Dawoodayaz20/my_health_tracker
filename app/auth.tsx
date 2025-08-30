@@ -3,6 +3,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, View, StyleSheet } from "react-native";
 import {Button, Text, TextInput, useTheme} from 'react-native-paper'
+// import { account } from "@/lib/appwrite";
 
 export default function AuthScreen() {    
     const [isSignUp, setisSignUp] = useState<boolean>(true);
@@ -14,6 +15,8 @@ export default function AuthScreen() {
     const theme = useTheme()
     
     const {signIn, signUp} = useAuth()
+
+    
 
     const handleAuth = async () => {
         if(!email || !pass){

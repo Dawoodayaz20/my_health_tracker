@@ -3,6 +3,7 @@ import { useAuth } from "@/lib/auth-context";
 import {StyleSheet, Text, View, Image, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView } from "react-native"
 import { Button, TextInput } from "react-native-paper"
 import * as ImagePicker from 'expo-image-picker'
+import { account } from "@/lib/appwrite";
 
 export default function LoginScreen() {
     const {signOut} = useAuth();
@@ -17,10 +18,6 @@ export default function LoginScreen() {
     password: "",
     });
 
-    const saveInfo = () => {
-      
-    }
-    
     const pickImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -76,6 +73,7 @@ export default function LoginScreen() {
       />
       <TextInput
         label="Gender"
+        placeholder="Male / Female or Other"
         value={profile.gender}
         onChangeText={(text) => setProfile({ ...profile, gender: text })}
         style={styles.input}
@@ -94,6 +92,7 @@ export default function LoginScreen() {
         style={styles.input}
         secureTextEntry
       />
+      <Button style={styles.button}>Save Info</Button>
 
       <Button style={styles.signOut} onPress={signOut} icon={"logout"}>{" "}
                 Sign Out {" "}</Button>
