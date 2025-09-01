@@ -8,7 +8,7 @@ const myclient = new Client()
 export const account = new Account(myclient)
 const databases = new Databases(myclient)
 
-async function saveNoteToAppwrite (title: string, date: string, details: string) {
+export async function saveNoteToAppwrite (title: string, date: string, details: string) {
 
     const accountInfo = await account.get()
     const userId = accountInfo.$id
@@ -30,7 +30,7 @@ async function saveNoteToAppwrite (title: string, date: string, details: string)
 )
 }
 
-export async function saveUserInfo(name:string, age: string, gender: string, ) {
+export async function saveUserInfo(name:string, age: string, gender: string, email: string, password: string) {
     const accountInfo = await account.get()
     const userId = accountInfo.$id
     
@@ -42,6 +42,8 @@ export async function saveUserInfo(name:string, age: string, gender: string, ) {
             name,
             age,
             gender,
+            email,
+            password
         },  
     [
       `read("user:${userId}")`,
