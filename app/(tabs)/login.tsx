@@ -3,7 +3,7 @@ import { useAuth } from "@/lib/auth-context";
 import {StyleSheet, Text, View, Image, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView } from "react-native"
 import { Button, TextInput } from "react-native-paper"
 import * as ImagePicker from 'expo-image-picker'
-import { account } from "@/lib/appwrite";
+import { saveUserInfo } from "@/lib/appwrite";
 
 export default function LoginScreen() {
     const {signOut} = useAuth();
@@ -92,7 +92,20 @@ export default function LoginScreen() {
         style={styles.input}
         secureTextEntry
       />
-      <Button style={styles.button}>Save Info</Button>
+
+      <Text>
+        {profile.name} 
+        {profile.age}
+        {profile.gender}
+        {profile.email}
+        {profile.password}
+      </Text>
+      <Button style={styles.button} onPress={(() => saveUserInfo(
+        profile.name, 
+        profile.age, 
+        profile.gender, 
+        profile.email, 
+        profile.password))}>Save Info</Button>
 
       <Button style={styles.signOut} onPress={signOut} icon={"logout"}>{" "}
                 Sign Out {" "}</Button>
