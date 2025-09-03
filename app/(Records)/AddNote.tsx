@@ -3,7 +3,7 @@ import { NotesContext } from "./notesContext";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import { Note } from "./notesContext";
+import { saveNoteToAppwrite } from "@/lib/appwrite_DB";
 
 export default function AddNote () {
     const { notes, setNotes } = useContext(NotesContext);
@@ -45,7 +45,11 @@ export default function AddNote () {
             <Text className="text-2xl font-bold text-blue-700">
                 {params.id ? "Edit Note" : "New Note"}
             </Text>
-            <Button mode="contained" onPress={saveNote}>
+            <Button 
+            mode="contained" 
+            onPress={(() => saveNoteToAppwrite(heading, date, details))}
+            onPressOut={(() => router.back())}
+            >
                 {params.id ? "Update" : "Save"}
             </Button>
             </View>

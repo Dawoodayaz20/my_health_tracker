@@ -8,7 +8,6 @@ import { getUserProfile } from "@/lib/appwrite_queries";
 
 export default function LoginScreen() {
     const {signOut} = useAuth();
-    const page = "loginPage"
 
     const [image, setImage] = useState<string | null>(null);
     const [profile, setProfile] = useState<any>({
@@ -27,7 +26,6 @@ export default function LoginScreen() {
       userData()
     }, [])
     
-
     const pickImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -110,16 +108,12 @@ export default function LoginScreen() {
         {profile.password}
       </Text>
 
-      {/* <Text>{userData ? userData.name : profile.name}</Text> */}
-
       <Button style={styles.button} onPress={(() => saveUserInfo(
         profile.name, 
         profile.age, 
         profile.gender, 
         profile.email, 
         profile.password))}>{"Save Info"}</Button>
-
-      {/* <Button style={styles.button} onPress={(() => userData())}>GetUser</Button> */}
 
       <Button style={styles.signOut} onPress={signOut} icon={"logout"}>{" "}
                 Sign Out {" "}</Button>

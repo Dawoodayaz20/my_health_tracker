@@ -1,4 +1,4 @@
-import {Account, Client, Databases, ID} from 'appwrite'
+import { Account, Client, Databases } from 'appwrite'
 
 const myclient = new Client()
     .setEndpoint(process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!)
@@ -7,11 +7,8 @@ const myclient = new Client()
 export const account = new Account(myclient)
 export const databases = new Databases(myclient)
 
-export async function getAccount () {
+export async function getAccountID () {
     const accountInfo = await account.get()
     const userId = accountInfo.$id
     return userId
 }
-
-
-

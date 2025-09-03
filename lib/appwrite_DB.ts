@@ -1,5 +1,5 @@
-import { ID, Query } from "appwrite"
-import { account, databases, getAccount } from "./appwrite"
+import { ID } from "appwrite"
+import { account, databases, getAccountID } from "./appwrite"
 import { getDocumentID } from "./appwrite_queries"
 
 export async function saveNoteToAppwrite (title: string, date: string, details: string) {
@@ -9,11 +9,11 @@ export async function saveNoteToAppwrite (title: string, date: string, details: 
 
     try{
         await databases.createDocument(
-        "68b183a00019ebb48e3f",
+        process.env.EXPO_PUBLIC_APPWRITE_DOC_ID!,
         "medical_notes",
         ID.unique(),
         {
-            userID: userId,
+            userId: userId,
             title,
             details,
             createdAt: date
@@ -32,7 +32,7 @@ export async function saveNoteToAppwrite (title: string, date: string, details: 
 
 export async function saveUserInfo(name:string, age: string, gender: string, email: string, password: string) {
 
-    const userAccount = await getAccount()
+    const userAccount = await getAccountID()
     if(userAccount){
         try{
             await databases.createDocument(
