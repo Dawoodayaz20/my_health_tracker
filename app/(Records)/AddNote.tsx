@@ -14,8 +14,6 @@ export default function AddNote () {
 
     const router = useRouter()
 
-    
-
     const saveNote = () => {
         if (!heading.trim() || !details.trim()) return;
         

@@ -1,11 +1,6 @@
-import { ID } from "appwrite"
-import { account, databases } from "./appwrite"
-
-export async function getAccount () {
-    const accountInfo = await account.get()
-    const userId = accountInfo.$id
-    return userId
-}
+import { ID, Query } from "appwrite"
+import { account, databases, getAccount } from "./appwrite"
+import { getDocumentID } from "./appwrite_queries"
 
 export async function saveNoteToAppwrite (title: string, date: string, details: string) {
 
@@ -45,6 +40,7 @@ export async function saveUserInfo(name:string, age: string, gender: string, ema
             "users",
             ID.unique(),
             {
+                userID: userAccount,
                 name,
                 age,
                 gender,
@@ -63,5 +59,24 @@ export async function saveUserInfo(name:string, age: string, gender: string, ema
     }
     else{
         alert("User must be logged in to save info!")
+    }
+}
+
+export async function updateUserInfo(name: string, age: string, gender: string, email: string) {
+    const documentID = await getDocumentID()
+    if (documentID) {
+        try{
+            const updated = await databases.updateDocument(
+                process.env.EXPO_PUBLIC_APPWRITE_DOC_ID!,
+                "users",
+                documentID,
+                {
+                    name, age, gender, email,
+                }
+            )
+        }
+        catch(error){
+
+        }
     }
 }
