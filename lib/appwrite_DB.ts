@@ -36,7 +36,7 @@ export async function saveUserInfo(name:string, age: string, gender: string, ema
     if(userAccount){
         try{
             await databases.createDocument(
-            "68b183a00019ebb48e3f",
+            process.env.EXPO_PUBLIC_APPWRITE_DOC_ID!,
             "users",
             ID.unique(),
             {
