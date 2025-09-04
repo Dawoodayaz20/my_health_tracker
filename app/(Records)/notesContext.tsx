@@ -1,7 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 
 
-
 type NotesContextType = {
   notes: Note[];
   setNotes: React.Dispatch<React.SetStateAction<Note[]>>;

@@ -1,6 +1,7 @@
-interface Note {
-    id: number,
-    heading: string,
+type Note = {
+    id: string,
+    userId: number,
+    title: string,
     date: string,
-    details: string
+    med_note: string
 }

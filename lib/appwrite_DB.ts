@@ -2,7 +2,7 @@ import { ID } from "appwrite"
 import { account, databases, getAccountID } from "./appwrite"
 import { getDocumentID } from "./appwrite_queries"
 
-export async function saveNoteToAppwrite (title: string, date: string, details: string) {
+export async function saveNoteToAppwrite (title: string, date: string, med_note: string) {
 
     const accountInfo = await account.get()
     const userId = accountInfo.$id
@@ -15,8 +15,8 @@ export async function saveNoteToAppwrite (title: string, date: string, details: 
         {
             userId: userId,
             title,
-            details,
-            createdAt: date
+            date,
+            med_note,
         },  
         [
         `read("user:${userId}")`,

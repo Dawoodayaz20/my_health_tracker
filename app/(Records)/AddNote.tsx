@@ -4,6 +4,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { saveNoteToAppwrite } from "@/lib/appwrite_DB";
+import { getNotes } from "@/lib/appwrite_queries";
 
 export default function AddNote () {
     const { notes, setNotes } = useContext(NotesContext);
@@ -11,30 +12,31 @@ export default function AddNote () {
     const [heading, setHeading] = useState<any>(params.heading || '')
     const [date, setDate] = useState<any>(params.date ||'')
     const [details, setDetail] = useState<any>(params.details ||'')
+    const [med_note, setNote] = useState<any>(params.med_note ||'')
 
     const router = useRouter()
 
     const saveNote = () => {
-        if (!heading.trim() || !details.trim()) return;
+        if (!heading.trim() || !med_note.trim()) return;
         
-        if(params.id) {
-            setNotes(
-                notes.map((n: Note) => 
-                n.id === Number(params.id) 
-                ? { ...n, heading, date, details } 
-                : n
-                )
-            );
-        } else {
-        setNotes([
-            ...notes,
-            {
-                id: Date.now(),
-                heading,
-                date, 
-                details,
-            },
-    ])};
+    //     if(params.id) {
+    //         setNotes(
+    //             notes.map((n: Note) => 
+    //             n.id === Number(params.id) 
+    //             ? { ...n, heading, date, details } 
+    //             : n
+    //             )
+    //         );
+    //     } else {
+    //     setNotes([
+    //         ...notes,
+    //         {
+    //             id: Date.now(),
+    //             title,
+    //             date, 
+    //             details,
+    //         },
+    // ])};
 
     router.back();    
     }
@@ -47,8 +49,8 @@ export default function AddNote () {
             </Text>
             <Button 
             mode="contained" 
-            onPress={(() => saveNoteToAppwrite(heading, date, details))}
-            onPressOut={(() => router.back())}
+            onPress={(() => router.back())}
+            onPressIn={(() => saveNoteToAppwrite(heading, date, med_note))}
             >
                 {params.id ? "Update" : "Save"}
             </Button>
@@ -70,10 +72,10 @@ export default function AddNote () {
                 className="bg-white"
                 />
                 <TextInput
-                label="Details"
+                label="Medical Note"
                 mode="outlined"
-                value={details}
-                onChangeText={setDetail}
+                value={med_note}
+                onChangeText={setNote}
                 multiline
                 numberOfLines={4}
                 className="bg-white"
